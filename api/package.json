@@ -4,7 +4,7 @@
   "description": "API for managing products and orders (Minimarket)",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
@@ -20,6 +20,7 @@
     "@types/express": "^5.0.3",
     "@types/node": "^24.3.0",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.9.2"
   }
 }
