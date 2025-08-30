@@ -3,7 +3,7 @@ import {
   SORT_ORDERS,
   SortField,
   SortOrder,
-} from "../../../shared/constants";
+} from "@shared/constants";
 
 export function sortProducts<T>(
   items: T[],

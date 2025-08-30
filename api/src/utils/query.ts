@@ -3,9 +3,9 @@ import {
   SORT_ORDERS,
   SortField,
   SortOrder,
-} from "../../../shared/constants";
+} from "@shared/constants";
 
-import { QueryParams } from "../../../shared/query";
+import { QueryParams } from "@shared/query";
 
 export function parseQueryParams(query: any): QueryParams {
   const {
