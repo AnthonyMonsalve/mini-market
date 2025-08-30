@@ -1,12 +1,6 @@
 import { Router } from "express";
 import products from "./data/products.json";
-import { ApiResponse, Product } from "../../shared/types";
-import {
-  SORT_ORDERS,
-  SortOrder,
-  SORT_FIELDS,
-  SortField,
-} from "../../shared/constants";
+import { ApiResponse, Product } from "@shared/types";
 import { paginate } from "./utils/pagination";
 import { sortProducts } from "./utils/sort";
 import { parseQueryParams } from "./utils/query";
