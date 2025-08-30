@@ -10,6 +10,14 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*", // lo que llamas desde el frontend
+        destination: "http://localhost:3001/api/:path*", // backend real
+      },
+    ];
+  },
 };
 
 export default nextConfig;

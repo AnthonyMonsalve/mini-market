@@ -1,13 +1,8 @@
 import { ApiResponse, Product } from "@shared/types";
 import { QueryParams } from "@shared/query";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:3001";
-
 export async function fetchProducts(
-  params: QueryParams = {
-    page: 1,
-    limit: 10,
-  }
+  params: QueryParams = { page: 1, limit: 10 }
 ): Promise<ApiResponse<Product[]>> {
   const query = new URLSearchParams();
 
@@ -17,24 +12,56 @@ export async function fetchProducts(
   if (params.search) query.append("search", params.search);
   if (params.sortField) query.append("sort", params.sortField);
   if (params.order) query.append("order", params.order);
-  if (params.available !== undefined)
+  if (params.available !== undefined) {
     query.append("available", params.available.toString());
-
-  const res = await fetch(`${BASE_URL}/api/products?${query.toString()}`, {});
-
-  if (!res.ok) {
-    throw new Error("Error al obtener productos");
   }
 
-  return res.json();
+  try {
+    const res = await fetch(`/api/products?${query.toString()}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!res.ok) {
+      return {
+        success: false,
+        message: "Error al obtener productos",
+        data: [],
+      };
+    }
+
+    return res.json();
+  } catch (err) {
+    return {
+      success: false,
+      message: "Error de conexión con la API",
+      data: [],
+    };
+  }
 }
 
 export async function fetchProduct(id: string): Promise<ApiResponse<Product>> {
-  const res = await fetch(`${BASE_URL}/api/products/${id}`, {});
+  try {
+    const res = await fetch(`/api/products/${id}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+    });
 
-  if (!res.ok) {
-    throw new Error("Producto no encontrado");
+    if (!res.ok) {
+      return {
+        success: false,
+        message: "Producto no encontrado",
+        data: {} as Product,
+      };
+    }
+
+    return res.json();
+  } catch (err) {
+    return {
+      success: false,
+      message: "Error de conexión con la API",
+      data: {} as Product,
+    };
   }
-
-  return res.json();
 }
